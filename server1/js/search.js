@@ -12,8 +12,16 @@ class Search{
     searchHandle(){
         let search = this.wordInput.value;
 
-        if(!seratch){
-            this.
+        if(!search){
+            this.wordPrint.innerHTML = "enter word!"
+            return;
         }
     }
+    
+
 }
+
+const wordInstance = new Search('wordInput', 'search_panel');
+document.getElementById('searchButton').addEventListener('click', () => {
+    wordInstance.searchHandle();
+});
