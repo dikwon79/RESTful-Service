@@ -1,11 +1,8 @@
-//string messages
+// user.js 파일
+
 const messages = {
-    error: {
-      correctOrder: 'Correct error',
-      incorrectOrder: 'Wrong error!',
-      condition: 'condition error',
-    },
-    delete: "do you want to delete really?",
+ 
+  delete: "do you want to delete really?",
 };
 
-  
+module.exports = messages;
