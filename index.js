@@ -128,8 +128,8 @@ class AppServer {
                 //res.writeHead(200, { 'Content-Type': 'application/json' });
                 
                 this.dictionary.dictionary[word] = definition;
-                console.log(dicLoad, this.dictionary);
-                res.end(JSON.stringify({ [word]: message.successadd}));
+                console.log(message.dicLoad, this.dictionary);
+                res.end(JSON.stringify({ [word]: message.successadd})); 
                 
             }
            
