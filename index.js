@@ -126,9 +126,10 @@ class AppServer {
 
                 this.dictionary.saveWord(word, definition);
                 //res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ [word]: successadd}));
+                
                 this.dictionary.dictionary[word] = definition;
                 console.log(dicLoad, this.dictionary);
+                res.end(JSON.stringify({ [word]: successadd}));
                 
             }
            
