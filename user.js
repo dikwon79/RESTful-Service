@@ -9,7 +9,7 @@ const messages = {
   save : "Please save both word and definition.",
   writeError : "Impossible to write.",
   writeSuccess : "Success to write.",
-  address : "/COMP4537/labs/4/api/definitions/",
+  address : "/COMP4537/labs/4/api/definitions",
   count : "Request count:",
   total : "total Dictionary count:",
   not404 : "404 Not Found",

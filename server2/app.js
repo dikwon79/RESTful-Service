@@ -69,9 +69,10 @@ class AppServer {
         const pathname = reqUrl.pathname;
        
         res.writeHead(200, {
+            'Access-Control-Allow-Headers': 'Content-Type',
             'Content-Type': 'application/json',
             "Access-Control-Allow-Origin" : "*",
-            "Access-Control-Allow-Methods": "*"
+            "Access-Control-Allow-Methods": "*",
         });
 
         if (req.method === 'POST' && pathname === endPointRoot) {
@@ -106,9 +107,10 @@ class AppServer {
         });
 
         req.on('end', () => {
-            let params = new URLSearchParams(data);
-            let word = params.get("word");
-            let definition = params.get("definition");
+            console.log(data);
+            let params = JSON.parse(data);
+            let word = Object.keys(params)[0]; 
+            let definition = params[word];
             
 
             if (!word.trim() || !definition.trim()) {
@@ -125,10 +127,14 @@ class AppServer {
 
                 this.dictionary.saveWord(word, definition);
                 //res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ [word]: successadd}));
-                this.dictionary.dictionary[word] = definition;
-                console.log(dicLoad, this.dictionary);
+
                 
+                this.dictionary.dictionary[word] = definition;
+                console.log(message.dicLoad, this.dictionary);
+
+                  res.end(JSON.stringify({ [word]: message.successadd}));
+                
+     
             }
            
 
@@ -147,11 +153,11 @@ class AppServer {
        
         } else {
            
-            res.end(JSON.stringify({ [query]: defnotFound}));
+            res.end(JSON.stringify({ [query]: message.defnotFound}));
         }
     }
     getDictionarySize() {
-        const dictionarySize = Object.keys(this.dictionary.dictionary).length + 1;
+        const dictionarySize = Object.keys(this.dictionary.dictionary).length;
         return dictionarySize;
     }
 
@@ -164,4 +170,4 @@ class AppServer {
 
 // Usage
 const appServer = new AppServer();
-appServer.listen(8888);
+appServer.listen(8080);

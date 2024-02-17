@@ -13,18 +13,20 @@ class Store {
     }
 
     setupEventListeners() {
-        const submitBtn = document.getElementById('submitDefinition');
-        if (submitBtn) {
-            submitBtn.addEventListener('click', (event) => {
-                event.preventDefault(); // 폼 제출 기본 동작 방지
-                this.addDefinition(); // 추가 정의 메서드 호출
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', (event) => {
+                event.preventDefault(); 
+                this.addDefinition();
+            
             });
         } else {
-            console.error("Submit button not found");
+            console.error("Form not found");
         }
     }
 
     addDefinition() {
+       
         const word = this.wordInput.value.trim();
         const definition = this.definitionInput.value.trim();
 
@@ -34,29 +36,28 @@ class Store {
         }
 
         const xhr = new XMLHttpRequest();
+        const url = "https://seashell-app-jjpva.ondigitalocean.app/COMP4537/labs/4/api/definitions";
+        //const url = "http://localhost:8080/COMP4537/labs/4/api/definitions";
 
-        xhr.open("POST", `https://seashell-app-jjpva.ondigitalocean.app/COMP4537/labs/4/api/definitions`, true); // Using host URL dynamically
+        xhr.open("POST", url, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
-        
-        var data = {
-            [word]: definition,
-           
-        };
-       
-        xhr.send(JSON.stringify(data));
-        console.log(JSON.stringify(data));
-       
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
 
-                console.log(xhr.responseTextsponse);
+        const data = {
+            [word]: definition,
+        };
+
+        xhr.onload = () => {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {
+                     
+                    console.log(xhr.responseText)
                     try {
                         const response = JSON.parse(xhr.responseText);
-                       
-                        this.responsePrint.innerHTML = "Success"; // 예시
+                        this.responsePrint.innerHTML = xhr.responseText;
                         this.wordInput.value = '';
                         this.definitionInput.value = '';
+                        
+                        
                     } catch (e) {
                         console.error("Error parsing JSON:", e);
                         this.responsePrint.innerHTML = "Error parsing JSON response.";
@@ -67,11 +68,15 @@ class Store {
                 }
             }
         };
-        
+
         xhr.onerror = () => {
             console.error("Error connecting to the server.");
             this.responsePrint.innerHTML = "Error connecting to the server. Please try again.";
         };
+
+        xhr.send(JSON.stringify(data));
+
+        
         
        
     }

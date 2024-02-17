@@ -107,8 +107,6 @@ class AppServer {
         });
 
         req.on('end', () => {
-
-
             console.log(data);
             let params = JSON.parse(data);
             let word = Object.keys(params)[0]; 
@@ -129,11 +127,14 @@ class AppServer {
 
                 this.dictionary.saveWord(word, definition);
                 //res.writeHead(200, { 'Content-Type': 'application/json' });
+
                 
                 this.dictionary.dictionary[word] = definition;
                 console.log(message.dicLoad, this.dictionary);
-                res.end(JSON.stringify({ [word]: message.successadd})); 
+
+                  res.end(JSON.stringify({ [word]: message.successadd}));
                 
+     
             }
            
 
@@ -152,11 +153,11 @@ class AppServer {
        
         } else {
            
-            res.end(JSON.stringify({ [query]: defnotFound}));
+            res.end(JSON.stringify({ [query]: message.defnotFound}));
         }
     }
     getDictionarySize() {
-        const dictionarySize = Object.keys(this.dictionary.dictionary).length + 1;
+        const dictionarySize = Object.keys(this.dictionary.dictionary).length;
         return dictionarySize;
     }
 
