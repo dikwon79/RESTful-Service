@@ -30,14 +30,14 @@ class Search {
             console.log( `${this.apiBaseUrl}/api/definitions/?word=${encodeURIComponent(searchWord)}`);
             if (xhr.status === 200) {
                 const response = JSON.parse(xhr.responseText);
-        const word = Object.keys(response)[0]; // Extract the word from the JSON response
-        const definition = response[word]; // Get the definition corresponding to the word
+                const word = Object.keys(response)[0]; // Extract the word from the JSON response
+                const definition = response[word]; // Get the definition corresponding to the word
 
-        if (definition !== 'Definition not found') {
-            this.wordPrint.innerHTML = `Found: ${word} - ${definition}`;
-        } else {
-            this.wordPrint.innerHTML = 'Word not found!';
-        }
+                if (definition !== 'Definition not found') {
+                    this.wordPrint.innerHTML = `Found: ${word} - ${definition}`;
+                } else {
+                    this.wordPrint.innerHTML = 'Word not found!';
+                }
     } else {
         this.wordPrint.innerHTML = 'Error fetching definition. Please try again.';
     }
