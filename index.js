@@ -129,7 +129,7 @@ class AppServer {
                 
                 this.dictionary.dictionary[word] = definition;
                 console.log(dicLoad, this.dictionary);
-                res.end(JSON.stringify({ [word]: successadd}));
+                res.end(JSON.stringify({ [word]: message.successadd}));
                 
             }
            
