@@ -10,8 +10,8 @@ class Search {
             return;
         }
 
-        //this.apiBaseUrl = "https://seashell-app-jjpva.ondigitalocean.app/COMP4537/labs/4";
-        this.apiBaseUrl = "http://localhost:8080/COMP4537/labs/4";
+        this.apiBaseUrl = "https://seashell-app-jjpva.ondigitalocean.app/COMP4537/labs/4";
+        //this.apiBaseUrl = "http://localhost:8080/COMP4537/labs/4";
        
     }
 

@@ -24,8 +24,8 @@ class Store {
         }
     }
 
-    addDefinition(event) {
-        event.preventDefault(); 
+    addDefinition() {
+      
         const word = this.wordInput.value.trim();
         const definition = this.definitionInput.value.trim();
 
