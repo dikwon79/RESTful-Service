@@ -107,9 +107,9 @@ class AppServer {
         });
 
         req.on('end', () => {
-            let params = new URLSearchParams(data);
-            let word = params.get("word");
-            let definition = params.get("definition");
+            let params = JSON.parse(data);
+            let word = Object.keys(params)[0]; 
+            let definition = params[word];
             
 
             if (!word.trim() || !definition.trim()) {
