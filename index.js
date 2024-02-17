@@ -65,7 +65,7 @@ class AppServer {
     }
 
     handleRequest(req, res) {
-        const reqUrl = new URL(req.url, `http://${req.headers.host}`);
+        const reqUrl = new URL(req.url, `https://${req.headers.host}`);
         const pathname = reqUrl.pathname;
        
         res.writeHead(200, {
