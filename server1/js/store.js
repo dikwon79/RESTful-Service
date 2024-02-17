@@ -16,17 +16,16 @@ class Store {
         const form = document.querySelector('form');
         if (form) {
             form.addEventListener('submit', (event) => {
-                event.preventDefault(); 
+                event.preventDefault(); // 
                 this.addDefinition();
-            
             });
         } else {
             console.error("Form not found");
         }
     }
 
-    addDefinition() {
-       
+    addDefinition(event) {
+        event.preventDefault(); 
         const word = this.wordInput.value.trim();
         const definition = this.definitionInput.value.trim();
 
@@ -37,7 +36,6 @@ class Store {
 
         const xhr = new XMLHttpRequest();
         const url = "https://seashell-app-jjpva.ondigitalocean.app/COMP4537/labs/4/api/definitions";
-        //const url = "http://localhost:8080/COMP4537/labs/4/api/definitions";
 
         xhr.open("POST", url, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
@@ -46,17 +44,15 @@ class Store {
             [word]: definition,
         };
 
-        xhr.onload = () => {
+        xhr.onreadystatechange = () => {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {
-                     
-                    console.log(xhr.responseText)
+                    
                     try {
                         const response = JSON.parse(xhr.responseText);
                         this.responsePrint.innerHTML = xhr.responseText;
                         this.wordInput.value = '';
                         this.definitionInput.value = '';
-                        
                         
                     } catch (e) {
                         console.error("Error parsing JSON:", e);
