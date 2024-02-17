@@ -14,8 +14,11 @@ class Store {
 
     setupEventListeners() {
         const submitBtn = document.getElementById('submitDefinition');
-        if(submitBtn) {
-            submitBtn.addEventListener('click', () => this.addDefinition());
+        if (submitBtn) {
+            submitBtn.addEventListener('click', (event) => {
+                event.preventDefault(); // 폼 제출 기본 동작 방지
+                this.addDefinition(); // 추가 정의 메서드 호출
+            });
         } else {
             console.error("Submit button not found");
         }
@@ -31,29 +34,46 @@ class Store {
         }
 
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', `https://seashell-app-jjpva.ondigitalocean.app/COMP4537/labs/4/api/definitions`, true); // Using host URL dynamically
+
+        xhr.open("POST", `https://seashell-app-jjpva.ondigitalocean.app/COMP4537/labs/4/api/definitions`, true); // Using host URL dynamically
         xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onload = () => {
-            console.log(xhr.responseText);
-            try {
+        
+        var data = {
+            [word]: definition,
+           
+        };
+       
+        xhr.send(JSON.stringify(data));
+        console.log(JSON.stringify(data));
+       
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+
+                console.log(xhr.responseTextsponse);
                 if (xhr.status === 200) {
-                    const response = JSON.parse(xhr.responseText);
-                    this.responsePrint.innerHTML = response.message;
-                    this.wordInput.value = '';
-                    this.definitionInput.value = '';
+                    try {
+                        const response = JSON.parse(xhr.responseText);
+                       
+                        this.responsePrint.innerHTML = "Success"; // 예시
+                        this.wordInput.value = '';
+                        this.definitionInput.value = '';
+                    } catch (e) {
+                        console.error("Error parsing JSON:", e);
+                        this.responsePrint.innerHTML = "Error parsing JSON response.";
+                    }
                 } else {
+                    console.error("Failed to add the definition. Status code:", xhr.status);
                     this.responsePrint.innerHTML = "Failed to add the definition.";
                 }
-            } catch (e) {
-                console.error("Error parsing JSON:", e);
-                this.responsePrint.innerHTML = "Error fetching definition. Please try again.";
             }
         };
         
         xhr.onerror = () => {
+            console.error("Error connecting to the server.");
             this.responsePrint.innerHTML = "Error connecting to the server. Please try again.";
         };
-        xhr.send(JSON.stringify({ word, definition }));
+        
+       
     }
 }
 

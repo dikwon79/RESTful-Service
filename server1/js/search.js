@@ -22,8 +22,10 @@ class Search {
         }
 
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', `${this.apiBaseUrl}api/definitions/?word=${encodeURIComponent(searchWord)}`, true);
+        xhr.open('GET', `${this.apiBaseUrl}/api/definitions/?word=${encodeURIComponent(searchWord)}`, true);
         xhr.onload = () => {
+
+            console.log( `${this.apiBaseUrl}/api/definitions/?word=${encodeURIComponent(searchWord)}`);
             if (xhr.status === 200) {
                 const response = JSON.parse(xhr.responseText);
         const word = Object.keys(response)[0]; // Extract the word from the JSON response
@@ -46,7 +48,7 @@ class Search {
 }
 
 
-const wordInstance = new Search('searchWord', 'search_panel');
+const wordInstance = new Search('wordInput', 'search_panel');
 document.getElementById('searchButton').addEventListener('click', () => {
     wordInstance.searchHandle();
 });

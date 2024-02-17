@@ -107,6 +107,9 @@ class AppServer {
         });
 
         req.on('end', () => {
+
+
+            console.log(data);
             let params = JSON.parse(data);
             let word = Object.keys(params)[0]; 
             let definition = params[word];
