@@ -69,10 +69,10 @@ class AppServer {
         const pathname = reqUrl.pathname;
        
         res.writeHead(200, {
+            'Access-Control-Allow-Headers': 'Content-Type',
             'Content-Type': 'application/json',
             "Access-Control-Allow-Origin" : "*",
             "Access-Control-Allow-Methods": "*",
-            'Access-Control-Allow-Headers': 'Content-Type',
         });
 
         if (req.method === 'POST' && pathname === endPointRoot) {
