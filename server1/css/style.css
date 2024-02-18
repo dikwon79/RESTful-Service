@@ -85,3 +85,7 @@ h1 {
     margin-top: 20px; 
 }
 
+#second_cell th,
+#second_cell td {
+    padding-top: 50px;
+}

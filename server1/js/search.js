@@ -34,7 +34,18 @@ class Search {
                 const definition = response[word]; // Get the definition corresponding to the word
 
                 if (definition !== 'Definition not found') {
-                    this.wordPrint.innerHTML = `Found: ${word} - ${definition}`;
+                    const table = `<table class="table-cell-spacing">
+                   <tr>
+                       <th>Word</th>
+                       <td>${word}</td>
+                   </tr>
+                   <tr id = "second_cell">
+                        <th>Definition</th>
+                        <td>${definition}</td>
+                   </tr>
+               </table>`;
+
+                    this.wordPrint.innerHTML = table;
                 } else {
                     this.wordPrint.innerHTML = 'Word not found!';
                 }
