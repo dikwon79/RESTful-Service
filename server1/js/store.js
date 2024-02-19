@@ -5,7 +5,7 @@ class Store {
         this.responsePrint = document.getElementById(responseId);
 
         if (!this.wordInput || !this.definitionInput || !this.responsePrint) {
-            console.error("One or more elements not found");
+            console.error(messages.elementNot);
             return;
         }
 
@@ -20,7 +20,7 @@ class Store {
                 this.addDefinition();
             });
         } else {
-            console.error("Form not found");
+            console.error(messages.formNotFound);
         }
     }
 
@@ -30,12 +30,12 @@ class Store {
         const definition = this.definitionInput.value.trim();
 
         if (!word || !definition) {
-            this.responsePrint.innerHTML = "Please fill in both the word and definition fields.";
+            this.responsePrint.innerHTML = messages.fillField;
             return;
         }
 
         const xhr = new XMLHttpRequest();
-        const url = "https://seashell-app-jjpva.ondigitalocean.app/COMP4537/labs/4/api/definitions";
+        const url = messages.address;
 
         xhr.open("POST", url, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
@@ -55,19 +55,19 @@ class Store {
                         this.definitionInput.value = '';
                         
                     } catch (e) {
-                        console.error("Error parsing JSON:", e);
-                        this.responsePrint.innerHTML = "Error parsing JSON response.";
+                        console.error(messages.parcingError, e);
+                        this.responsePrint.innerHTML = messages.parcingResponse;
                     }
                 } else {
-                    console.error("Failed to add the definition. Status code:", xhr.status);
-                    this.responsePrint.innerHTML = "Failed to add the definition.";
+                    console.error(messages.failToadd, xhr.status);
+                    this.responsePrint.innerHTML = messages.failTodefinition;
                 }
             }
         };
 
         xhr.onerror = () => {
-            console.error("Error connecting to the server.");
-            this.responsePrint.innerHTML = "Error connecting to the server. Please try again.";
+            console.error(messages.connectError);
+            this.responsePrint.innerHTML = messages.tryagain;
         };
 
         xhr.send(JSON.stringify(data));

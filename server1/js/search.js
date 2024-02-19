@@ -1,16 +1,14 @@
-
-
 class Search {
     constructor(wordId, printId) {
         this.wordInput = document.getElementById(wordId);
         this.wordPrint = document.getElementById(printId);
 
         if (!this.wordInput || !this.wordPrint) {
-            this.wordPrint.innerHTML = "Input or print panel element not found";
+            this.wordPrint.innerHTML = messages.notfound;
             return;
         }
 
-        this.apiBaseUrl = "https://seashell-app-jjpva.ondigitalocean.app/COMP4537/labs/4";
+        this.apiBaseUrl = messages.baseUrl;
         //this.apiBaseUrl = "http://localhost:8080/COMP4537/labs/4";
        
     }
@@ -19,7 +17,7 @@ class Search {
         let searchWord = this.wordInput.value.trim();
 
         if (!searchWord) {
-            this.wordPrint.innerHTML = "Please enter a word!";
+            this.wordPrint.innerHTML = messages.enterWord;
             return;
         }
 
@@ -33,28 +31,19 @@ class Search {
                 const word = Object.keys(response)[0]; // Extract the word from the JSON response
                 const definition = response[word]; // Get the definition corresponding to the word
 
-                if (definition !== 'Definition not found') {
-                    const table = `<table>
-                   <tr>
-                       <th>Word</th>
-                       <th>Definition</th>
-                   </tr>
-                   <tr>
-                       <td>${word}</td>
-                       <td>${definition}</td>
-                   </tr>
-               </table>`;
+                if (definition !== messages.DefinitionNot) {
+                    const table = `${messages.table}${word}</td><td>${definition}</td></tr></table>`;
 
                     this.wordPrint.innerHTML = table;
                 } else {
-                    this.wordPrint.innerHTML = 'Word not found!';
+                    this.wordPrint.innerHTML = messages.wordnotFound;
                 }
     } else {
-        this.wordPrint.innerHTML = 'Error fetching definition. Please try again.';
+        this.wordPrint.innerHTML = messages.errorFetcing;
     }
         };
         xhr.onerror = () => {
-            this.wordPrint.innerHTML = 'Error fetching definition. Please try again.';
+            this.wordPrint.innerHTML = messages.errorFetcing;
         };
         xhr.send();
     }

@@ -132,7 +132,7 @@ class AppServer {
                 this.dictionary.dictionary[word] = definition;
                 console.log(message.dicLoad, this.dictionary);
 
-                  res.end(JSON.stringify({ [word]: message.successadd}));
+                res.end(JSON.stringify({ [word]: message.successadd}));
                 
      
             }
@@ -149,11 +149,21 @@ class AppServer {
 
         if (query in this.dictionary.dictionary) {
 
-            res.end(JSON.stringify({ [query]: this.dictionary.dictionary[query] }));
+            res.end(JSON.stringify({ 
+                [query]: this.dictionary.dictionary[query], 
+                totalData: this.getDictionarySize(),
+                requestCount: this.requestCount
+            
+            }));
        
         } else {
            
-            res.end(JSON.stringify({ [query]: message.defnotFound}));
+            res.end(JSON.stringify({ 
+                [query]: message.defnotFound,
+                totalData: this.getDictionarySize(),
+                requestCount: this.requestCount
+    
+            }));
         }
     }
     getDictionarySize() {
