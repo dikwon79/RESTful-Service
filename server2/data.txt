@@ -1,4 +1,1 @@
-labtopgood: nice item
-
-1. 호출 api 주소 wrong
-2. id 값 에러 
+dongil: ddd

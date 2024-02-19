@@ -1,3 +1,4 @@
+//chatgpt3.5 I used it to get the solutions
 class Search {
     constructor(wordId, printId) {
         this.wordInput = document.getElementById(wordId);
@@ -8,8 +9,8 @@ class Search {
             return;
         }
 
-        this.apiBaseUrl = messages.baseUrl;
-        //this.apiBaseUrl = "http://localhost:8080/COMP4537/labs/4";
+        //this.apiBaseUrl = messages.baseUrl;
+        this.apiBaseUrl = "http://localhost:8080/COMP4537/labs/4";
        
     }
 
@@ -40,9 +41,9 @@ class Search {
                 if (definition !== messages.DefinitionNot) {
                     const table = `${messages.table}${word}</td><td>${definition}</td></tr></table>`;
 
-                    this.wordPrint.innerHTML = info+ table;
+                    this.wordPrint.innerHTML = table+ info;
                 } else {
-                    this.wordPrint.innerHTML = messages.wordnotFound;
+                    this.wordPrint.innerHTML = messages.wordnotFound + info;
                 }
     } else {
         this.wordPrint.innerHTML = messages.errorFetcing;

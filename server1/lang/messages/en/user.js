@@ -14,6 +14,7 @@ const messages = {
   formNotFound: "Form not found",
   fillField: "Please fill in both the word and definition fields.",
   address: "https://seashell-app-jjpva.ondigitalocean.app/COMP4537/labs/4/api/definitions",
+  test: "http://localhost:8080/COMP4537/labs/4/api/definitions",
   parcingError: "Error parsing JSON:",
   parcingResponse: "Error parsing JSON response.",
   failToadd: "Failed to add the definition. Status code:",

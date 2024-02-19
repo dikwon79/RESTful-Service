@@ -1,6 +1,8 @@
+//chatgpt3.5 I used it to get the solutions
+
 const http = require('http');
 const fs = require('fs');
-const message = require('./user');
+const message = require('./lang/messages/en/user');
 const endPointRoot = message.address;
 
 class Filesave {
@@ -14,17 +16,17 @@ class Filesave {
     loadWord() {
         fs.readFile(this.filename, 'utf8', (err, data) => {
             if (err) {
-                // 파일이 없는 경우 새로운 파일을 생성합니다.
+              
                 if (err.code === 'ENOENT') {
                     console.log(`${this.filename}..${message.notFound}`);
-                    //this.saveWord(); // 파일 생성
+                   
                     return;
                 }
-                // 다른 오류인 경우 오류 메시지 출력
+               
                 console.error(message.reading, err);
                 return;
             }
-            // 파일이 정상적으로 읽혔을 때 처리
+           
             const lines = data.split('\n');
             for (const line of lines) {
                 const [word, definition] = line.split(': ');
@@ -65,7 +67,7 @@ class AppServer {
     }
 
     handleRequest(req, res) {
-        const reqUrl = new URL(req.url, `http://${req.headers.host}`);
+        const reqUrl = new URL(req.url, `https://${req.headers.host}`);
         const pathname = reqUrl.pathname;
        
         res.writeHead(200, {
@@ -132,7 +134,7 @@ class AppServer {
                 this.dictionary.dictionary[word] = definition;
                 console.log(message.dicLoad, this.dictionary);
 
-                  res.end(JSON.stringify({ [word]: message.successadd}));
+                res.end(JSON.stringify({ [word]: message.successadd}));
                 
      
             }
@@ -149,11 +151,21 @@ class AppServer {
 
         if (query in this.dictionary.dictionary) {
 
-            res.end(JSON.stringify({ [query]: this.dictionary.dictionary[query] }));
+            res.end(JSON.stringify({ 
+                [query]: this.dictionary.dictionary[query], 
+                totalData: this.getDictionarySize(),
+                requestCount: this.requestCount
+            
+            }));
        
         } else {
            
-            res.end(JSON.stringify({ [query]: message.defnotFound}));
+            res.end(JSON.stringify({ 
+                [query]: message.defnotFound,
+                totalData: this.getDictionarySize(),
+                requestCount: this.requestCount
+    
+            }));
         }
     }
     getDictionarySize() {

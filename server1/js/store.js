@@ -1,3 +1,4 @@
+//chatgpt3.5 I used it to get the solutions
 class Store {
     constructor(wordId, definitionId, responseId) {
         this.wordInput = document.getElementById(wordId);
@@ -35,7 +36,9 @@ class Store {
         }
 
         const xhr = new XMLHttpRequest();
-        const url = messages.address;
+        //const url = messages.address;
+        const url = messages.test;
+
 
         xhr.open("POST", url, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
