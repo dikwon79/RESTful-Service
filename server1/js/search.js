@@ -34,14 +34,14 @@ class Search {
                 const definition = response[word]; // Get the definition corresponding to the word
 
                 if (definition !== 'Definition not found') {
-                    const table = `<table class="table-cell-spacing">
+                    const table = `<table>
                    <tr>
                        <th>Word</th>
-                       <td>${word}</td>
+                       <th>Definition</th>
                    </tr>
-                   <tr id = "second_cell">
-                        <th>Definition</th>
-                        <td>${definition}</td>
+                   <tr>
+                       <td>${word}</td>
+                       <td>${definition}</td>
                    </tr>
                </table>`;
 
