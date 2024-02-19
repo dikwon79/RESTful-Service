@@ -30,11 +30,17 @@ class Search {
                 const response = JSON.parse(xhr.responseText);
                 const word = Object.keys(response)[0]; // Extract the word from the JSON response
                 const definition = response[word]; // Get the definition corresponding to the word
+                const count = response["totalData"];
+                const request = response["requestCount"];
+
+                const info = `${messages.tableInfo}${count}</td><td>${request}</td></tr></table>`;
+
+                
 
                 if (definition !== messages.DefinitionNot) {
                     const table = `${messages.table}${word}</td><td>${definition}</td></tr></table>`;
 
-                    this.wordPrint.innerHTML = table;
+                    this.wordPrint.innerHTML = info+ table;
                 } else {
                     this.wordPrint.innerHTML = messages.wordnotFound;
                 }

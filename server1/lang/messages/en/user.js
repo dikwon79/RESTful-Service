@@ -6,6 +6,7 @@ const messages = {
   notfound: "Input or print panel element not found",
   enterWord: "Please enter a word!",
   table: "<table><tr><th>Word</th><th>Definition</th></tr><tr><td>",
+  tableInfo: "<table><tr><th>Total Word Count</th><th>User request count</th></tr><tr><td>",
   DefinitionNot: "Definition not found",
   wordnotFound: 'Word not found!',
   errorFetcing: 'Error fetching definition. Please try again.',
